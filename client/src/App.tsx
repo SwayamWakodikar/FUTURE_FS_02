@@ -2,11 +2,9 @@
 
 function App() {
 
-  return (
+  return (      
     <>
-      <div className='bg-red'>
-asdasd
-      </div>
+     
     </>
   )
 }
