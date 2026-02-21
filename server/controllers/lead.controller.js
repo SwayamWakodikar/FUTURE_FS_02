@@ -2,9 +2,11 @@ import Lead from "../models/leadModel.js";
 
 export const createLead = async (req, res, next) => {
   try {
+    console.log("Creating lead with data:", req.body);
     const lead = await Lead.create(req.body);
     res.status(201).json(lead);
   } catch (error) {
+    console.error("Error creating lead:", error);
     next(error);
   }
 };
