@@ -6,7 +6,7 @@ import { StatsSection } from "./components/StatsSection";
 import { LeadList } from "./components/LeadList";
 import { LeadFormModal } from "./components/LeadFormModal";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "/api/leads";
 
 function App() {
   const [leads, setLeads] = useState<Lead[]>([]);
