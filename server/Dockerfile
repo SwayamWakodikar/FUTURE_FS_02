@@ -1,38 +1,39 @@
 # syntax=docker/dockerfile:1
 
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Dockerfile reference guide at
-# https://docs.docker.com/go/dockerfile-reference/
-
-# Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
-
 ARG NODE_VERSION=22.16.0
 
+# Stage 1: Build the frontend client
+FROM node:${NODE_VERSION}-alpine as builder
+WORKDIR /app/client
+# Copy client dependencies
+COPY client/package*.json ./
+RUN npm ci
+# Copy client source and build
+COPY client/ ./
+RUN npm run build
+
+# Stage 2: Setup the backend server
 FROM node:${NODE_VERSION}-alpine
-
-# Use production node environment by default.
 ENV NODE_ENV production
-
-
 WORKDIR /usr/src/app
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.npm to speed up subsequent builds.
-# Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
-# into this layer.
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci --omit=dev
+# Copy server dependencies
+COPY server/package.json server/package-lock.json ./
+RUN npm ci --omit=dev
+
+# Copy server source
+COPY server/ ./
+
+# The server looks for the frontend client in "../client/dist"
+# from "/usr/src/app" (which resolves to "/usr/src/client/dist").
+# We copy the built client files to that expected location.
+COPY --from=builder /app/client/dist /usr/src/client/dist
 
 # Run the application as a non-root user.
 USER node
-
-# Copy the rest of the source files into the image.
-COPY . .
 
 # Expose the port that the application listens on.
 EXPOSE 5000
 
 # Run the application.
-CMD npm start
+CMD ["npm", "start"]
