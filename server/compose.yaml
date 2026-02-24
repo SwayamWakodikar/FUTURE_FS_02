@@ -10,9 +10,10 @@
 services:
   server:
     build:
-      context: .
+      context: ..
+      dockerfile: server/Dockerfile
     env_file:
-      - .env
+      - server/.env
     environment:
       NODE_ENV: production
       PORT: 5000
