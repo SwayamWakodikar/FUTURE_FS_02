@@ -16,7 +16,7 @@ export function Navbar({ openModal }: NavbarProps) {
               </svg>
             </div>
             <span className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 to-violet-600">
-              LeadFlow
+              Quantive CRM
             </span>
           </div>
           <button
