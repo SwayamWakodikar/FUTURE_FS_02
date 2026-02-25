@@ -3,7 +3,7 @@ name: Keep Server Alive
 
 on:
   schedule:
-    - cron: "0 */6 * * *"   # Every 6 hours
+    - cron: "*/10 * * * *"   
   workflow_dispatch:        # Allows manual trigger
 
 jobs:
@@ -13,4 +13,4 @@ jobs:
     steps:
       - name: Send request to server
         run: |
-          curl -fsS https://future-fs-02-eddm.onrender.com/ || exit 1
+          curl -fsS https://quantivecrm.onrender.com || exit 1
