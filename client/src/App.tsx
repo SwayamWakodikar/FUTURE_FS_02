@@ -122,20 +122,16 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-100 via-white to-slate-50 text-slate-900 font-sans relative overflow-hidden">
-      {/* Soft background ambient glow */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-400/10 rounded-full blur-[100px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-violet-400/10 rounded-full blur-[100px] pointer-events-none"></div>
-
+    <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans selection:bg-zinc-900 selection:text-white">
       {/* Navigation */}
       <Navbar openModal={openModal} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
         {/* Header Greeting */}
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Welcome back, Team! 👋</h1>
-          <p className="text-slate-500 mt-2">Here's what's happening with your leads today.</p>
+        <div className="mb-8 border-b border-zinc-200 pb-5">
+          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">Leads Overview</h1>
+          <p className="text-sm text-zinc-500 mt-1">Manage and track your pipeline activity.</p>
         </div>
 
         {/* Stats Section */}
