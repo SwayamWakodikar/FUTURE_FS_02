@@ -18,8 +18,14 @@ connectDB();
 
 const app = express();
 
+// Trust proxy is required if you are running behind a proxy like Render or Heroku
+// otherwise your secure cookies won't work!
+app.set("trust proxy", 1);
+
 app.use(cors({
-  origin: "http://localhost:5173", // Only for dev. Docker works on same port naturally.
+  origin: process.env.NODE_ENV === "production" 
+    ? "https://quantivecrm.onrender.com" 
+    : "http://localhost:5173",
   credentials: true, // Allow cookies to be sent
 }));
 app.use(express.json());
